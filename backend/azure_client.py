@@ -1,13 +1,17 @@
 import os
+from dotenv import load_dotenv
 from openai import AzureOpenAI
 import json
 import math
 
-# Hardcoded credentials as per user request (in a real app, use env vars, but inserting here for convenience based on prompt)
-AZURE_OPENAI_ENDPOINT = "https://vishn-m6moqvgb-francecentral.openai.azure.com"
-AZURE_OPENAI_KEY = os.getenv("AZURE_OPENAI_KEY", "YOUR_API_KEY_HERE_OR_SET_ENV_VAR")
-AZURE_OPENAI_DEPLOYMENT = "gpt-4o-mini"
-AZURE_OPENAI_API_VERSION = "2024-02-01"
+load_dotenv()
+
+# Credentials from environment variables
+AZURE_OPENAI_ENDPOINT = os.getenv("AZURE_OPENAI_ENDPOINT")
+AZURE_OPENAI_KEY = os.getenv("AZURE_OPENAI_KEY")
+AZURE_OPENAI_DEPLOYMENT = os.getenv("AZURE_OPENAI_DEPLOYMENT")
+AZURE_OPENAI_API_VERSION = os.getenv("AZURE_OPENAI_API_VERSION", "2024-02-01")
+
 
 client = AzureOpenAI(
     azure_endpoint=AZURE_OPENAI_ENDPOINT,
