@@ -50,7 +50,12 @@ const ChatInterface = () => {
         try {
             const context = messages.slice(-5).map(m => ({ role: m.role === 'system' ? 'assistant' : m.role, content: m.content }));
             const response = await sendMessage(userMsg.content, context);
-            const botMsg = { role: 'assistant', content: response.response, timestamp: new Date().toISOString() };
+            const botMsg = {
+                role: 'assistant',
+                content: response.response,
+                source: response.source,
+                timestamp: new Date().toISOString()
+            };
             setMessages(prev => [...prev, botMsg]);
         } catch (error) {
             setMessages(prev => [...prev, { role: 'assistant', content: "Sorry, I encountered an error. Please try again.", isError: true }]);
@@ -152,6 +157,13 @@ const ChatInterface = () => {
                                                     {msg.content}
                                                 </ReactMarkdown>
                                             </div>
+                                            {/* Source Indicator */}
+                                            {msg.source === 'database' && (
+                                                <div className="mt-2 pt-2 border-t border-slate-100 flex items-center text-xs text-brand-blue font-medium">
+                                                    <div className="w-1.5 h-1.5 rounded-full bg-brand-blue mr-1.5 animate-pulse"></div>
+                                                    Verified Answer from Database
+                                                </div>
+                                            )}
                                         </div>
                                     </div>
                                 </div>
@@ -179,14 +191,16 @@ const ChatInterface = () => {
             </div>
 
             {/* Scroll to Top Button */}
-            {showScrollButton && (
-                <button
-                    onClick={() => scrollContainerRef.current?.scrollTo({ top: 0, behavior: 'smooth' })}
-                    className="absolute bottom-36 right-4 p-3 bg-white border border-slate-200 shadow-xl rounded-full text-slate-500 hover:text-brand-blue hover:border-brand-blue transition-all z-20"
-                >
-                    <ArrowUp className="w-5 h-5" />
-                </button>
-            )}
+            {
+                showScrollButton && (
+                    <button
+                        onClick={() => scrollContainerRef.current?.scrollTo({ top: 0, behavior: 'smooth' })}
+                        className="absolute bottom-36 right-4 p-3 bg-white border border-slate-200 shadow-xl rounded-full text-slate-500 hover:text-brand-blue hover:border-brand-blue transition-all z-20"
+                    >
+                        <ArrowUp className="w-5 h-5" />
+                    </button>
+                )
+            }
 
             {/* Input Area - NO BORDERS */}
             <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-white via-white to-transparent pt-10 pb-4 px-4">
@@ -219,7 +233,7 @@ const ChatInterface = () => {
 
                 </div>
             </div>
-        </div>
+        </div >
     );
 };
 

@@ -10,6 +10,7 @@ load_dotenv()
 AZURE_OPENAI_ENDPOINT = os.getenv("AZURE_OPENAI_ENDPOINT")
 AZURE_OPENAI_KEY = os.getenv("AZURE_OPENAI_KEY")
 AZURE_OPENAI_DEPLOYMENT = os.getenv("AZURE_OPENAI_DEPLOYMENT")
+AZURE_OPENAI_EMBEDDING_DEPLOYMENT = os.getenv("AZURE_OPENAI_EMBEDDING_DEPLOYMENT", "text-embedding-ada-002")
 AZURE_OPENAI_API_VERSION = os.getenv("AZURE_OPENAI_API_VERSION", "2024-02-01")
 
 
@@ -61,12 +62,13 @@ def calculate_distance_logic(origin, destination):
     # Let's return a structured prompt to the LLM to Perform the calculation using its best estimate.
     return f"Please calculate the distance between {origin} and {destination} using your internal geographical knowledge and provide the answer in kilometers and miles."
 
-async def get_chat_response(messages):
+async def get_chat_response(messages, temperature=0.7):
     response = client.chat.completions.create(
         model=AZURE_OPENAI_DEPLOYMENT,
         messages=messages,
         tools=tools,
-        tool_choice="auto"
+        tool_choice="auto",
+        temperature=temperature
     )
     
     response_message = response.choices[0].message
@@ -106,7 +108,29 @@ async def get_chat_response(messages):
         second_response = client.chat.completions.create(
             model=AZURE_OPENAI_DEPLOYMENT,
             messages=messages,
+            temperature=temperature
         )
         return second_response.choices[0].message.content
     else:
         return response_message.content
+
+
+# Add to top of file with other env vars
+AZURE_OPENAI_EMBEDDING_DEPLOYMENT = os.getenv("AZURE_OPENAI_EMBEDDING_DEPLOYMENT", "text-embedding-ada-002")
+
+async def get_embedding(text: str) -> list[float]:
+    """
+    Generate embedding for the given text using Azure OpenAI.
+    """
+    try:
+        response = client.embeddings.create(
+            input=text,
+            model=AZURE_OPENAI_EMBEDDING_DEPLOYMENT 
+        )
+        return response.data[0].embedding
+    except Exception as e:
+        print(f"Error getting embedding: {e}")
+        if "DeploymentNotFound" in str(e):
+             print(f"⚠️ Embedding deployment '{AZURE_OPENAI_EMBEDDING_DEPLOYMENT}' not found. Please check your Azure OpenAI Studio and update .env file.")
+        raise
+

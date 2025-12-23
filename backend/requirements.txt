@@ -1,6 +1,6 @@
 fastapi
 uvicorn
 openai
-motor
+asyncpg
 pydantic
 python-dotenv
