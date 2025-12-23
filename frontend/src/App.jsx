@@ -4,6 +4,12 @@ import { Menu, Plus, MessageSquare, Settings, LogOut } from 'lucide-react';
 
 function App() {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const [chatId, setChatId] = useState(Date.now());
+
+    const handleNewChat = () => {
+        setChatId(Date.now());
+        setIsSidebarOpen(false);
+    };
 
     return (
         <div className="flex h-screen bg-white font-sans overflow-hidden">
@@ -23,7 +29,7 @@ function App() {
                 md:translate-x-0 md:static
             `}>
                 <div className="p-3 flex-none">
-                    <button className="flex items-center gap-3 w-full px-3 py-3 rounded-md border border-slate-200 hover:bg-slate-200 transition-colors text-sm text-left">
+                    <button onClick={handleNewChat} className="flex items-center gap-3 w-full px-3 py-3 rounded-md border border-slate-200 hover:bg-slate-200 transition-colors text-sm text-left">
                         <Plus className="w-4 h-4" />
                         <span>New chat</span>
                     </button>
@@ -77,7 +83,7 @@ function App() {
                 </header>
 
                 {/* Chat Interface takes up remaining space */}
-                <ChatInterface />
+                <ChatInterface key={chatId} />
             </main>
         </div>
     );
