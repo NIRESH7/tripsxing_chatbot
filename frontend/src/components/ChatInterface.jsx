@@ -82,7 +82,7 @@ const ChatInterface = () => {
                         </div>
                         <h2 className="text-2xl font-semibold text-slate-800">How can I help you today?</h2>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl w-full">
-                            {['Plan a trip to Tokyo', 'Best hotels in Paris', 'Weekend getaways near me', 'Flight tips for international travel'].map((suggestion, i) => (
+                            {['Plan a trip to Goa', 'Best hotels in Mumbai', 'Weekend getaways from Delhi', 'Houseboats in Kerala'].map((suggestion, i) => (
                                 <button
                                     key={i}
                                     onClick={() => setInput(suggestion)}
@@ -99,7 +99,7 @@ const ChatInterface = () => {
                             <div
                                 key={index}
                                 className={clsx(
-                                    "w-full py-6 px-4 md:px-8 border-b-0",
+                                    "w-full py-6 px-2 md:px-4 border-b-0",
                                     msg.role === 'user' ? "bg-white" : "bg-slate-50/50"
                                 )}
                             >
@@ -128,7 +128,7 @@ const ChatInterface = () => {
                                         msg.role === 'user' ? "items-end" : "items-start"
                                     )}>
                                         <div className={clsx(
-                                            "prose prose-slate leading-7 text-[15px] md:text-base inline-block text-left p-3 rounded-2xl max-w-[70%] md:max-w-[60%] shadow-sm break-words overflow-hidden line-clamp-6",
+                                            "prose prose-slate leading-7 text-[15px] md:text-base inline-block text-left p-3 rounded-2xl max-w-[90%] md:max-w-[80%] shadow-sm break-words overflow-hidden line-clamp-6",
                                             // USER BUBBLE STYLE
                                             msg.role === 'user'
                                                 ? "bg-brand-blue text-white rounded-tr-sm"
@@ -189,7 +189,7 @@ const ChatInterface = () => {
             )}
 
             {/* Input Area - NO BORDERS */}
-            <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-white via-white to-transparent pt-10 pb-6 px-4">
+            <div className="absolute bottom-0 left-0 w-full bg-gradient-to-t from-white via-white to-transparent pt-10 pb-4 px-4">
                 <div className="max-w-3xl mx-auto">
                     {/* Removed 'border', 'ring', 'focus-within' classes to eliminate borders */}
                     <div className="relative flex items-end w-full p-3 bg-white rounded-2xl shadow-[0_0_15px_rgba(0,0,0,0.1)] transition-all">
@@ -216,9 +216,7 @@ const ChatInterface = () => {
                             <Send className="w-4 h-4" />
                         </button>
                     </div>
-                    <div className="text-center mt-2 text-xs text-slate-400">
-                        TripsXing can make mistakes. Consider checking important information.
-                    </div>
+
                 </div>
             </div>
         </div>

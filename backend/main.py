@@ -1,8 +1,8 @@
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
-from database import db
-from azure_client import get_chat_response
+from .database import db
+from .azure_client import get_chat_response
 import datetime
 
 app = FastAPI()

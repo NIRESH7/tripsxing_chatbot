@@ -18,12 +18,12 @@ function App() {
             {/* Sidebar (ChatGPT style) */}
             <aside className={`
                 fixed inset-y-0 left-0 z-30
-                w-[260px] bg-slate-900 text-slate-100 flex flex-col transition-transform duration-300 ease-in-out
+                w-[260px] bg-slate-50 text-slate-800 flex flex-col transition-transform duration-300 ease-in-out border-r border-slate-200
                 ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}
                 md:translate-x-0 md:static
             `}>
                 <div className="p-3 flex-none">
-                    <button className="flex items-center gap-3 w-full px-3 py-3 rounded-md border border-slate-700 hover:bg-slate-800 transition-colors text-sm text-left">
+                    <button className="flex items-center gap-3 w-full px-3 py-3 rounded-md border border-slate-200 hover:bg-slate-200 transition-colors text-sm text-left">
                         <Plus className="w-4 h-4" />
                         <span>New chat</span>
                     </button>
@@ -31,18 +31,18 @@ function App() {
 
                 <div className="flex-1 overflow-y-auto px-3 py-2">
                     <div className="text-xs font-medium text-slate-500 mb-2 px-3">Today</div>
-                    <button className="flex items-center gap-3 w-full px-3 py-3 rounded-md hover:bg-slate-800 transition-colors text-sm text-left truncate group">
-                        <MessageSquare className="w-4 h-4 text-slate-500 group-hover:text-slate-300" />
+                    <button className="flex items-center gap-3 w-full px-3 py-3 rounded-md hover:bg-slate-200 transition-colors text-sm text-left truncate group">
+                        <MessageSquare className="w-4 h-4 text-slate-500 group-hover:text-slate-700" />
                         <span className="truncate">Trip to Paris</span>
                     </button>
-                    <button className="flex items-center gap-3 w-full px-3 py-3 rounded-md hover:bg-slate-800 transition-colors text-sm text-left truncate group">
-                        <MessageSquare className="w-4 h-4 text-slate-500 group-hover:text-slate-300" />
+                    <button className="flex items-center gap-3 w-full px-3 py-3 rounded-md hover:bg-slate-200 transition-colors text-sm text-left truncate group">
+                        <MessageSquare className="w-4 h-4 text-slate-500 group-hover:text-slate-700" />
                         <span className="truncate">Travel Itinerary</span>
                     </button>
                 </div>
 
-                <div className="p-3 border-t border-slate-700 flex-none">
-                    <button className="flex items-center gap-3 w-full px-3 py-3 rounded-md hover:bg-slate-800 transition-colors text-sm text-left">
+                <div className="p-3 border-t border-slate-200 flex-none">
+                    <button className="flex items-center gap-3 w-full px-3 py-3 rounded-md hover:bg-slate-200 transition-colors text-sm text-left">
                         <div className="w-8 h-8 rounded-full bg-brand-red flex items-center justify-center text-white font-bold">
                             U
                         </div>
